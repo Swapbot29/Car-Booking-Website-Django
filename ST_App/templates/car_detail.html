@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %} Detail of {{detail.car_name}} {% endblock %}
+
+{% block nav %}
+
+<ul class="nav navbar-nav navbar-right">
+  <li><a href="{% url 'home' %}">HOME</a></li>
+  <li>{% if user.is_authenticated %}
+      <p id="log" style="color: white;top:16px">Welcome, {{ user.username }}!</p></li>
+      <li><form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          &nbsp;&nbsp;<button id="log2" style="background:transparent;color:white;" type="submit">LOG OUT</button>
+      </form></li><li>
+      {% else %}
+          <a id="log3" href="{% url 'login' %}" style="color: white;">LOGIN</a>
+      {% endif %}</li>
+</ul>
+
+{% endblock %}
+
+{% block body %}
+
+
+<div class ='col-sm-6 col-sm-offset-3' style="margin-top: 100px;">
+    <div class="list-group-item active">
+      <strong><span class="glyphicon glyphicon-film"></span> Car Detail</strong>
+    </div>
+      {% if car.car_image %}
+        <img src='{{ car.car_image.url }}' style="width:300px;position:relative;left:150px;" class="img-responsive"/>
+      {% endif %}
+    <a href="" class="list-group-item"><strong>Car Name: </strong>{{car.car_name}}</a>
+    <a href="" class="list-group-item"><strong>Company Name   : </strong>{{car.company_name}}</a>
+    <a href="" class="list-group-item"><strong>Model Year: </strong>{{car.year}}</a>
+    <a href="" class="list-group-item"><strong>Num Of Seat   : </strong>{{car.number_of_seats}}</a>
+    <a href="" class="list-group-item"><strong>Cost Per Day   : </strong>{{car.cost_per_day}} Rs / 8hrs 80 KM</a>
+    <a href="" class="list-group-item"><strong>Cost For Out-Station :</strong>{{ car.cost_for_outstation }} Rs / Km <br> + DA (Driver Allowance)</a>
+                  
+    <div class="pull-right">
+      {% if user.is_superuser %}
+        <a href="{% url 'car_update' car.id %}"><button type="button" class="btn btn-primary">Update</button></a>
+        <a href="{% url 'car_delete' car.id %}"><button type="button" class="btn btn-primary">Delete</button></a>
+        <a href="{% url 'admin_carlist' %}"><button type="button" class="btn btn-primary">Back</button></a>
+      {% else %}
+        {% if user.is_authenticated %}
+          <a href="{% url 'book_car' %}"><button type="button" class="btn btn-danger"> Book</button></a>
+          <a href="{% url 'car_list' %}"><button type="button" class="btn btn-primary">Back</button></a>
+        {% else %}
+          <a><button type="button" class="btn btn-danger" onclick="popup()"> Book</button></a>
+          <a href="{% url 'car_list' %}"><button type="button" class="btn btn-primary">Back</button></a>
+        {% endif %}
+      {% endif %}
+  <hr>
+    </div>
+  </div>
+  
+{% endblock %}

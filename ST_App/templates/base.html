@@ -1,0 +1,150 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+      <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+      <link href="http://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+      <script src="http://kit.fontawesome.com/c4254e24a8.js" crossorigin="anonymous"></script>
+      <style>
+        .navbar {
+          margin-bottom: 0;
+          background-color:#b30000;
+          z-index: 9999;
+          border: 0;
+          font-size: 12px !important;
+          line-height: 1.42857143 !important;
+          letter-spacing: 4px;
+          border-radius: 0;
+          font-family: Montserrat, sans-serif;
+      }
+      .navbar li a, .navbar .navbar-brand {
+          color: #fff !important;
+      }
+      .navbar-nav li a:hover, .navbar-nav li.active a {
+          color: #f4511e !important;
+          background-color: #fff !important;
+      }
+      .navbar-default .navbar-toggle {
+          border-color: transparent;
+          color: #fff !important;
+      }
+      .slogo{width:5px;}
+    #log{position:relative;font-size: 13px;}
+    #log2{position:relative;top:15px;left:5px;font-size: 13px; border: 1px solid transparent;}
+    #log{position:relative;top:0px;}
+      #form1 {
+          background-color: #f7f7f7;
+          padding: 20px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      label {
+          font-weight: bold;
+      }
+      input[type="text"],
+      input[type="email"],
+      input[type="password"],
+      select,
+      textarea {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          box-shadow: inset 0 2px 2px rgba(0, 0, 0, 0.1);
+          transition: border-color 0.3s ease;
+      }
+      input[type="text"]:focus,
+      input[type="email"]:focus,
+      input[type="password"]:focus,
+      select:focus,
+      textarea:focus {
+          border-color: #007bff;
+          outline: none;
+      }
+
+      {% comment %} pop-up {% endcomment %}
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1;
+      }
+      
+      .modal-content {
+        background-color: #fff;
+        margin: 20% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        text-align: center;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      }
+      
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+      
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      </style>
+</head>
+
+<nav class="navbar navbar-custom navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="glyphicon glyphicon-align-justify"></span>
+
+      </button>
+      <div class="navbar-brand"> Swastik Travels</div>
+
+
+    </div>
+
+      <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+         
+
+{% block nav %}
+        
+{% endblock %} 
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+{% block body %}
+<div class="container">
+
+</div>
+{% endblock %}
+
+<script>
+  function popup() {
+    alert("You must log in to book a car.");
+    window.location.href = "{% url 'login' %}";
+  }
+</script>
+
+</html>

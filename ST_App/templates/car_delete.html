@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %} Delete Car {% endblock %}
+
+{% block nav %}
+
+<ul class="nav navbar-nav navbar-right">
+    <li><a href="{% url 'home' %}">HOME</a></li>
+    <li>{% if user.is_authenticated %}
+        <p id="log" style="color: white;top:16px">Welcome, {{ user.username }}!</p></li>
+        <li><form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            &nbsp;&nbsp;<button id="log2" style="background:transparent;color:white;" type="submit">LOG OUT</button>
+        </form></li><li>
+    {% else %}
+        <a id="log3" href="{% url 'login' %}" style="color: white;">LOGIN</a>
+    {% endif %}</li>
+  </ul>
+
+{% endblock %}
+
+{% block body %}
+    <div class="container" style="margin-top: 100px;" id="form1">
+        <h1>Delete Car</h1>
+        <p>Are you sure you want to delete "{{ car.company_name }} {{ car.car_name }}"?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Confirm Delete</button>
+            <a href="{% url 'admin_carlist' %}">Cancel</a>
+        </form>
+    </div>
+{% endblock %}

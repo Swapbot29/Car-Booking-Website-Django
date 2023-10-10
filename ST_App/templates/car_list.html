@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}  Car List {% endblock %}
+
+{% block delete_confirm %}
+       
+{% endblock %}
+
+
+{% block nav %}
+            <li><a href="{% url 'home' %}">HOME</a></li>
+            <li>{% if user.is_authenticated %}
+              <p id="log" style="color: white;top:16px">Welcome, {{ user.username }}!</p></li>
+              <li><form method="post" action="{% url 'logout' %}">
+                  {% csrf_token %}
+                  &nbsp;&nbsp;<button id="log2" style="background:transparent;color:white;" type="submit">LOG OUT</button>
+              </form></li><li>
+                {% else %}
+                    <a id="log3" href="{% url 'login' %}" style="color: black;">LOGIN</a>
+                {% endif %}</li>
+{% endblock %}
+
+
+
+
+{% block body %}
+  <div class="container" style="margin-top: 100px;">
+    <h2 class="container-fluid text-center">CAR LIST</h2><br><br>
+  <div class="row">
+          {% for ob in cars %}
+  
+        <div class="col-sm-6 col-md-3">
+          <div class="thumbnail">
+              {% if ob.car_image %}
+                  <img src='{{ ob.car_image.url }}' style="width:300px;" class="img-responsive"/>
+              {% endif %}
+            <div class="caption">
+              <strong>{{ ob.car_name }}</strong>
+              <p> Company Name: {{ ob.company_name }}<br>
+                  Num Of Seats: {{ ob.number_of_seats }}<br>
+                  Cost Per Day: {{ ob.cost_per_day }} Rs / 8hrs 80 KM<br>
+              </p>
+                  {% if user.is_authenticated %}
+                    <div>
+                        <p><a href="{% url 'car_detail' ob.id %}" class="btn btn-primary" role="button">Detail</a>
+                        <a href="{% url 'book_car' %}" class="btn btn-danger" role="button">Book</a></p>
+                    </div>
+                  {% else %}
+                    <div>
+                      <p><a href="{% url 'car_detail' ob.id %}" class="btn btn-primary" role="button">Detail</a>
+                      <a class="btn btn-danger" role="button" onclick="popup()">Book</a></p>
+                    </div>
+                  {% endif %}
+            </div>
+          </div>
+        </div>
+  
+  
+          {% endfor %}
+    </div>
+        <nav>
+            <ul class="pager">
+            <li class="previous">{% if cars.has_previous %}
+                    <a href="?page={{ cars.previous_page_number }}" style="background-color:#1aa3ff !important; color: white !important;"><span aria-hidden="true">&larr;</span> Previous</a>
+            {% endif %}
+            </li>
+                <li class="previous" style="color: black !important;">
+                    Page {{ cars.number }} of {{ cars.paginator.num_pages }}.
+        
+            </li>
+            <li class="next">{% if cars.has_next %}
+                    <a href="?page={{ cars.next_page_number }}" style="background-color:#1aa3ff !important; color: white !important;">
+                Next <span aria-hidden="true">&rarr;</span></a>{% endif %}</li>
+            </ul>
+        </nav>
+                <hr>
+        </div>
+  
+{% endblock %}
+

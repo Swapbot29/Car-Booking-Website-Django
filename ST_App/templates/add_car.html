@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Create Car {% endblock %}
+
+{% block nav %}
+
+<div class="collapse navbar-collapse" id="myNavbar">
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="{% url 'home' %}">HOME</a></li>
+      <li>{% if user.is_authenticated %}
+        <p id="log" style="color: white;top:16px">Welcome, {{ user.username }}!</p></li>
+        <li><form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            &nbsp;&nbsp;<button id="log2" style="background:transparent;color:white;" type="submit">LOG OUT</button>
+        </form></li><li>
+    {% else %}
+        <a id="log3" href="{% url 'login' %}" style="color: white;">LOGIN</a>
+    {% endif %}</li>
+    </ul>
+  </div>
+
+{% endblock %}
+{% block body %}
+<div class ='col-sm-6 col-sm-offset-3' style="margin-top: 50px;">
+    <div class="panel panel-primary" >
+        <div class="list-group-item active">
+            <strong><span class="glyphicon glyphicon-film"></span> Car Create</strong>
+        </div>
+        <form method="POST" action="" enctype="multipart/form-data" id="form1" >{% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit" class='btn btn-primary'>Add</button>
+            <a href="{% url 'admin_carlist' %}"><button type="button" class="btn btn-primary">Back</button></a>
+        </form>
+    </div>
+</div>
+{% endblock %}
+</html>
+
